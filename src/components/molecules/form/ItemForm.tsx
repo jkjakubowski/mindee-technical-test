@@ -17,7 +17,7 @@ const StyledButton = styled(Button)`
   background-color: #fd3246;
 `;
 
-const Form = ({ formik }: any) => {
+const ItemForm = ({ formik }: any) => {
   return (
     <StyledForm onSubmit={formik.handleSubmit}>
       <StyledTextField
@@ -26,6 +26,8 @@ const Form = ({ formik }: any) => {
         label="Item's name"
         value={formik.values.name}
         onChange={formik.handleChange}
+        error={formik.touched.name && Boolean(formik.touched.name)}
+        helperText={formik.touched.name && formik.errors.name}
       />
       <StyledTextField
         id="description"
@@ -33,6 +35,10 @@ const Form = ({ formik }: any) => {
         label="Item's description"
         value={formik.values.description}
         onChange={formik.handleChange}
+        error={
+          formik.touched.description && Boolean(formik.touched.description)
+        }
+        helperText={formik.touched.description && formik.errors.description}
       />
       <StyledButton color="primary" type="submit" variant="contained">
         Submit item
@@ -41,4 +47,4 @@ const Form = ({ formik }: any) => {
   );
 };
 
-export default Form;
+export default ItemForm;
