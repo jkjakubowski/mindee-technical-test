@@ -1,18 +1,11 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import "./App.css";
 import { useFormik } from "formik";
-import styled from "styled-components";
 
-import { TextField, Button } from "@mui/material";
-import ItemsTable from "./components/table/Table";
-import Form from "./components/form/Form";
-
-const Layout = styled.div`
-  padding: 50px 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+import Layout from "./components/template/Layout";
+import { Title } from "./components/atoms/Title";
+import ItemsTable from "./components/molecules/table/Table";
+import Form from "./components/molecules/form/Form";
 
 const App: FC = () => {
   const [items, setItems] = useState([{ name: "toto", description: "toto" }]);
@@ -33,6 +26,7 @@ const App: FC = () => {
   return (
     <div className="App">
       <Layout>
+        <Title>Mindee's Items list</Title>
         <Form formik={formik} />
         <div>
           <ItemsTable rows={items} />

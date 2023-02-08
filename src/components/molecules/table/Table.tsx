@@ -10,10 +10,11 @@ import {
   TableRow,
   Paper,
   IconButton,
+  Box,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import { HEADLABELS } from "../../constants";
+import { HEADLABELS } from "../../../constants";
 
 type RowProps = {
   name: string;
@@ -60,13 +61,7 @@ const ItemsTable: FC<TableProps> = ({ rows }) => {
             >
               {row.name}
             </TableCell>
-            <StyledTableCell
-              align="right"
-              style={{
-                whiteSpace: "normal",
-                wordWrap: "break-word",
-              }}
-            >
+            <StyledTableCell align="right">
               <span style={{ wordWrap: "break-word", whiteSpace: "normal" }}>
                 {row.description}
               </span>
@@ -83,12 +78,24 @@ const ItemsTable: FC<TableProps> = ({ rows }) => {
   };
 
   return (
-    <TableContainer sx={{ minWidth: 700, maxWidth: 800 }} component={Paper}>
-      <Table>
-        <Head />
-        <Body rows={rows} />
-      </Table>
-    </TableContainer>
+    <Box className="mt-6" sx={{ width: "100%" }}>
+      <Paper
+        sx={{
+          xs: "100%",
+          sm: "calc(50% - 20px)",
+          md: "calc(33% - 20px)",
+          mb: 2,
+          minWidth: 400,
+        }}
+      >
+        <TableContainer>
+          <Table sx={{ maxWidth: 1000 }}>
+            <Head />
+            <Body rows={rows} />
+          </Table>
+        </TableContainer>
+      </Paper>
+    </Box>
   );
 };
 
