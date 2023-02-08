@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import styled from "styled-components";
 
 import {
   Table,
@@ -23,6 +24,10 @@ type TableProps = {
   rows: RowProps[];
 };
 
+const StyledTableCell = styled(TableCell)`
+  max-width: 260px;
+`;
+
 const ItemsTable: FC<TableProps> = ({ rows }) => {
   const Head: FC = () => {
     return (
@@ -40,14 +45,32 @@ const ItemsTable: FC<TableProps> = ({ rows }) => {
 
   const Body: FC<TableProps> = ({ rows }) => {
     return (
-      <TableBody>
+      <TableBody style={{ wordWrap: "break-word", whiteSpace: "normal" }}>
         {rows.map((row) => (
           <TableRow
+            style={{ wordWrap: "break-word", whiteSpace: "normal" }}
             key={row.name}
-            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            sx={{
+              "&:last-child td, &:last-child th": { border: 0 },
+            }}
           >
-            <TableCell align="right">{row.name}</TableCell>
-            <TableCell align="right">{row.description}</TableCell>
+            <TableCell
+              align="right"
+              style={{ wordWrap: "break-word", whiteSpace: "normal" }}
+            >
+              {row.name}
+            </TableCell>
+            <StyledTableCell
+              align="right"
+              style={{
+                whiteSpace: "normal",
+                wordWrap: "break-word",
+              }}
+            >
+              <span style={{ wordWrap: "break-word", whiteSpace: "normal" }}>
+                {row.description}
+              </span>
+            </StyledTableCell>
             <TableCell align="right">
               <IconButton>
                 <DeleteIcon />
@@ -60,7 +83,7 @@ const ItemsTable: FC<TableProps> = ({ rows }) => {
   };
 
   return (
-    <TableContainer sx={{ maxWidth: 700 }} component={Paper}>
+    <TableContainer sx={{ minWidth: 700, maxWidth: 800 }} component={Paper}>
       <Table>
         <Head />
         <Body rows={rows} />

@@ -1,9 +1,18 @@
 import React, { FC, useState } from "react";
 import "./App.css";
 import { useFormik } from "formik";
+import styled from "styled-components";
 
 import { TextField, Button } from "@mui/material";
 import ItemsTable from "./components/table/Table";
+import Form from "./components/form/Form";
+
+const Layout = styled.div`
+  padding: 50px 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const App: FC = () => {
   const [items, setItems] = useState([{ name: "toto", description: "toto" }]);
@@ -21,31 +30,14 @@ const App: FC = () => {
     },
   });
 
-
   return (
     <div className="App">
-      <form onSubmit={formik.handleSubmit}>
-        <TextField
-          id="name"
-          variant="outlined"
-          label="Item's name"
-          value={formik.values.name}
-          onChange={formik.handleChange}
-        ></TextField>
-        <TextField
-          id="description"
-          variant="outlined"
-          label="Item's description"
-          value={formik.values.description}
-          onChange={formik.handleChange}
-        ></TextField>
-        <Button type="submit" variant="contained">
-          Submit item
-        </Button>
-      </form>
-      <div>
-        <ItemsTable rows={items} />
-      </div>
+      <Layout>
+        <Form formik={formik} />
+        <div>
+          <ItemsTable rows={items} />
+        </div>
+      </Layout>
     </div>
   );
 };
