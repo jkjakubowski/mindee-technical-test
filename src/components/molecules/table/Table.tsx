@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 
 import {
@@ -15,21 +15,13 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { HEADLABELS } from "../../../constants";
-
-type RowProps = {
-  name: string;
-  description: string;
-};
-
-type TableProps = {
-  rows: RowProps[];
-};
+import { ItemProps, ItemsProps } from "../../../types/item-types";
 
 const StyledTableCell = styled(TableCell)`
   max-width: 260px;
 `;
 
-const ItemsTable: FC<TableProps> = ({ rows }) => {
+const ItemsTable: FC<ItemsProps> = ({ items, handleRemoval }: any) => {
   const Head: FC = () => {
     return (
       <TableHead>
@@ -44,13 +36,13 @@ const ItemsTable: FC<TableProps> = ({ rows }) => {
     );
   };
 
-  const Body: FC<TableProps> = ({ rows }) => {
+  const Body: FC<ItemsProps> = ({ items }) => {
     return (
       <TableBody style={{ wordWrap: "break-word", whiteSpace: "normal" }}>
-        {rows.map((row) => (
+        {items.map((item: ItemProps) => (
           <TableRow
             style={{ wordWrap: "break-word", whiteSpace: "normal" }}
-            key={row.name}
+            key={item.id}
             sx={{
               "&:last-child td, &:last-child th": { border: 0 },
             }}
@@ -59,15 +51,15 @@ const ItemsTable: FC<TableProps> = ({ rows }) => {
               align="right"
               style={{ wordWrap: "break-word", whiteSpace: "normal" }}
             >
-              {row.name}
+              {item.name}
             </TableCell>
             <StyledTableCell align="right">
               <span style={{ wordWrap: "break-word", whiteSpace: "normal" }}>
-                {row.description}
+                {item.description}
               </span>
             </StyledTableCell>
             <TableCell align="right">
-              <IconButton>
+              <IconButton onClick={() => handleRemoval(item.id)}>
                 <DeleteIcon />
               </IconButton>
             </TableCell>
@@ -91,7 +83,7 @@ const ItemsTable: FC<TableProps> = ({ rows }) => {
         <TableContainer>
           <Table sx={{ maxWidth: 1000 }}>
             <Head />
-            <Body rows={rows} />
+            <Body items={items} />
           </Table>
         </TableContainer>
       </Paper>
